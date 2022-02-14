@@ -15,7 +15,8 @@
   "dependencies": {
     "history": "^5.1.0",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react-dom": "^16.14.0",
+    "react-simple-code-editor": "^0.11.0"
   },
   "devDependencies": {
     "@types/react": "^16.14.0",
