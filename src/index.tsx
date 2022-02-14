@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
+const { highlight, languages } = require('prismjs/components/prism-core');
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
-import { compile } from "aqua-compiler";
+import { compile, parse } from "aqua-compiler";
 import _ from "lodash";
+import { JSONTree } from 'react-json-tree';
  
 const code = `function onRegister() {
     return 1;
@@ -18,16 +19,20 @@ function main() {
 return main();
 `;
 
+console.log(parse); //fio:
+
 interface IAppState {
     code: string;
     compiled: string;
+    ast: any;
 }
  
 class App extends React.Component<{}, IAppState> {
     
     state = { 
         code: code, 
-        compiled: "" 
+        compiled: "" ,
+        ast: {},
     };
 
     componentDidMount() {
@@ -37,6 +42,7 @@ class App extends React.Component<{}, IAppState> {
     private compileCode() {
         this.setState({
             compiled: compile(this.state.code),
+            ast: parse(this.state.code, () => {}),
         });
     }
 
@@ -53,6 +59,11 @@ class App extends React.Component<{}, IAppState> {
                         highlight={code => highlight(code, languages.js)}
                         padding={10}
                     />
+                    <div className="overflow-auto" style={{ height: "50%" }}>
+                        <JSONTree 
+                            data={this.state.ast} 
+                            />
+                    </div>
                 </div>
                 <div style={{ width: "50%" }}>
                     <pre className="font-mono text-xs">
