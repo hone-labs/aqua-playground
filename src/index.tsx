@@ -8,7 +8,10 @@ import "prismjs/themes/prism.css";
 import { compile, parse } from "aqua-compiler";
 import _ from "lodash";
 import { JSONTree } from 'react-json-tree';
- 
+import * as Space from 'react-spaces';
+import { Input, Button, Tabs, Menu } from 'antd';
+const { TabPane } = Tabs;
+
 const code = `function onRegister() {
     return 1;
 }
@@ -68,33 +71,79 @@ class App extends React.Component<{}, IAppState> {
 
     render() {
         return (
-            <div className="flex flex-row">
-                <div className="p-5" style={{ width: "50%" }}>
-                    <Editor
-                        style={{ height: "50%" }}
-                        value={this.state.code}
-                        onValueChange={code => {
-                            this.setState({ code: code });
-                            _.debounce(() => this.compileCode(), 5000)();
-                        }}
-                        highlight={code => highlight(code, languages.js)}
-                        padding={10}
-                    />
-                    <div
-                        style={{ height: "50%" }}
+            <Space.ViewPort>
+                <Space.Top
+                    size="150px"
+                    >
+                    <h1>Aqua language playground</h1>
+                </Space.Top>
+                <Space.Fill>
+                    <Space.Left 
+                        size="50%"
+                        className="pl-2 pt-2 overflow-hidden"
                         >
-                        <JSONTree 
-                            data={this.state.ast} 
-                            theme={theme}
-                            />
-                    </div>
-                </div>
-                <div style={{ width: "50%" }}>
-                    <pre className="font-mono text-xs">
-                        {this.state.compiled}                    
-                    </pre>
-                </div>
-            </div>
+                        <Tabs type="card">
+                            <TabPane 
+                                tab="Aqua"
+                                className="p-1 overflow-y-auto"
+                                >
+                                <Editor
+                                    style={{
+                                        height: "100%",
+                                    }}
+                                    value={this.state.code}
+                                    onValueChange={code => {
+                                        this.setState({ code: code });
+                                        _.debounce(() => this.compileCode(), 5000)();
+                                    }}
+                                    highlight={code => highlight(code, languages.js)}
+                                    padding={10}
+                                    />
+                            </TabPane>
+                        </Tabs>
+                    </Space.Left>
+                    <Space.Right
+                    size="50%"
+                        className="pl-2 pt-2 overflow-hidden"
+                        >
+                        <Tabs type="card">
+                            <TabPane 
+                                tab="TEAL"
+                                key="1"
+                                className="p-1 overflow-y-auto"
+                                >
+                                <pre className="font-mono text-xs">
+                                    {this.state.compiled}                    
+                                </pre>
+                            </TabPane>
+                            <TabPane 
+                                tab="Abstract syntax tree"
+                                key="2"
+                                className="p-1 overflow-y-auto"
+                                >
+                                <pre className="font-mono text-xs">
+                                    <JSONTree 
+                                        data={this.state.ast} 
+                                        theme={theme}
+                                        />
+                                </pre>
+                            </TabPane>
+                        </Tabs>
+                    </Space.Right>
+                </Space.Fill>
+                <Space.Bottom
+                    size="250px"
+                    >
+                    <Tabs type="card" size="small" className="p-2">
+                        <TabPane 
+                            tab="Errors"
+                            className="p-2"
+                            >
+                            TODO
+                        </TabPane>
+                    </Tabs>
+                </Space.Bottom>
+            </Space.ViewPort>
         );                
     }
 }
