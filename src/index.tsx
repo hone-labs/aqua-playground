@@ -5,7 +5,7 @@ const { highlight, languages } = require('prismjs/components/prism-core');
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import "prismjs/themes/prism.css";
-import { compile, parse } from "aqua-compiler";
+import { compile, IError, parse } from "aqua-compiler";
 import _ from "lodash";
 import { JSONTree } from 'react-json-tree';
 import * as Space from 'react-spaces';
@@ -116,7 +116,7 @@ class App extends React.Component<{}, IAppState> {
                                     value={this.state.code}
                                     onValueChange={code => {
                                         this.setState({ code: code });
-                                        _.debounce(() => this.compileCode(), 5000)();
+                                        _.debounce(() => this.compileCode(), 100)();
                                     }}
                                     highlight={code => highlight(code, languages.js)}
                                     padding={10}
@@ -161,7 +161,7 @@ class App extends React.Component<{}, IAppState> {
                             tab="Errors"
                             className="p-2"
                             >
-                            {this.state.errors.map((error, index) => {
+                            {this.state.errors.map((error: IError, index) => {
                                 return (
                                     <div key={index}>
                                         {error.msg}
