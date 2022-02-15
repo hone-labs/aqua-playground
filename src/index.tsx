@@ -48,6 +48,7 @@ interface IAppState {
     code: string;
     compiled: string;
     ast: any;
+    errors: any[];
 }
  
 class App extends React.Component<{}, IAppState> {
@@ -56,6 +57,7 @@ class App extends React.Component<{}, IAppState> {
         code: code, 
         compiled: "" ,
         ast: {},
+        errors: [],
     };
 
     componentDidMount() {
@@ -63,20 +65,40 @@ class App extends React.Component<{}, IAppState> {
     }
 
     private compileCode() {
+        const errors: any[] = [];
+
+        let compiled: string = "";
+
+        try {
+            compiled = compile(this.state.code, (err: IError) => {
+                errors.push(err);
+            });
+        }    
+        catch (err) {
+            //
+            // Possible compile errors.
+            //
+            console.error(`Error compiling Aqua code.`);
+            console.error(err);
+        }
+
         this.setState({
-            compiled: compile(this.state.code),
+            compiled: compiled,
             ast: parse(this.state.code, () => {}),
+        });
+        this.setState({
+            errors: errors,
         });
     }
 
     render() {
         return (
             <Space.ViewPort>
-                <Space.Top
+                {/* <Space.Top
                     size="150px"
                     >
                     <h1>Aqua language playground</h1>
-                </Space.Top>
+                </Space.Top> */}
                 <Space.Fill>
                     <Space.Left 
                         size="50%"
@@ -139,7 +161,13 @@ class App extends React.Component<{}, IAppState> {
                             tab="Errors"
                             className="p-2"
                             >
-                            TODO
+                            {this.state.errors.map((error, index) => {
+                                return (
+                                    <div key={index}>
+                                        {error.msg}
+                                    </div>
+                                );
+                            })}
                         </TabPane>
                     </Tabs>
                 </Space.Bottom>
