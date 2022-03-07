@@ -4,3 +4,4 @@ tsconfig.tsbuildinfo
 todo.txt
 build/
 .cache/
+.parcel-cache
