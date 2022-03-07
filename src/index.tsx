@@ -1,10 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Editor from 'react-simple-code-editor';
-const { highlight, languages } = require('prismjs/components/prism-core');
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import "prismjs/themes/prism.css";
+import Prism from "prismjs";
 import { compile, IError, parse } from "aqua-compiler";
 import _ from "lodash";
 import { JSONTree } from 'react-json-tree';
@@ -118,7 +115,7 @@ class App extends React.Component<{}, IAppState> {
                                         this.setState({ code: code });
                                         _.debounce(() => this.compileCode(), 100)();
                                     }}
-                                    highlight={code => highlight(code, languages.js)}
+                                    highlight={code => Prism.highlight(code, Prism.languages.js, "javascript")}
                                     padding={10}
                                     />
                             </TabPane>
