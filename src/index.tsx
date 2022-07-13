@@ -10,17 +10,6 @@ import { Input, Button, Tabs, Menu } from 'antd';
 const { TabPane } = Tabs;
 import "./styles/styles.less";
 
-const code = `function onRegister(): uint64 {
-    return 1;
-}
-
-function main(): uint64 {
-    return onRegister();
-}
-
-return main();
-`;
-
 const theme = {
     scheme: 'monokai',
     author: 'wimer hazenberg (http://www.monokai.nl)',
@@ -49,10 +38,19 @@ interface IAppState {
     errors: any[];
 }
  
+//
+// Example queries that can be put in the query editor.
+//
+const examples = [
+    require(`./examples/first-example`).default,
+    require(`./examples/app-global-get-ex`).default,
+    require(`./examples/function-returns-tuple`).default,
+];
+
 class App extends React.Component<{}, IAppState> {
     
     state = { 
-        code: code, 
+        code: examples[0].text, 
         compiled: "" ,
         ast: {},
         errors: [],
@@ -62,11 +60,13 @@ class App extends React.Component<{}, IAppState> {
         this.compileCode();    
     }
 
+    //
+    // Compiles the Aqua code and displays the result.
+    //
     private compileCode() {
         const errors: any[] = [];
 
         const compiled = compile(this.state.code, (err: IError) => {
-            console.log(err); //fio:
             errors.push(err);
         });
 
@@ -80,14 +80,48 @@ class App extends React.Component<{}, IAppState> {
     render() {
         return (
             <Space.ViewPort>
-                {/* <Space.Top
-                    size="150px"
+                <Space.Top
+                    size="70px"
                     >
-                    <h1>Aqua language playground</h1>
-                </Space.Top> */}
+                    <div className="pl-4 p-2">
+                        <h1 className="text-2xl">Aqua language playground</h1>
+                        <h2 className="text-lg">An interactive editor for the Aqua language</h2>
+                    </div>
+                </Space.Top>
                 <Space.Fill>
                     <Space.Left 
-                        size="50%"
+                        size="200px"
+                        className="pl-2 pt-2 overflow-hidden"
+                        >
+                        <Tabs type="card">
+                            <TabPane 
+                                tab="Examples"
+                                className="overflow-y-auto"
+                                >
+                                <Menu 
+                                    mode="vertical"
+                                    >
+                                    {examples.map(example => (
+                                        <Menu.Item
+                                            className="border-0 border-b border-solid border-gray-300"
+                                            key={example.name}
+                                            onClick={() => {
+                                                this.setState(
+                                                    {
+                                                        code: example.text,
+                                                    }, 
+                                                    () => this.compileCode()
+                                                );
+                                            }}
+                                            >
+                                            {example.name}
+                                        </Menu.Item>
+                                    ))}
+                                </Menu>
+                            </TabPane>
+                        </Tabs>
+                    </Space.Left>
+                    <Space.Fill
                         className="pl-2 pt-2 overflow-hidden"
                         >
                         <Tabs type="card">
@@ -109,9 +143,9 @@ class App extends React.Component<{}, IAppState> {
                                     />
                             </TabPane>
                         </Tabs>
-                    </Space.Left>
+                    </Space.Fill>
                     <Space.Right
-                    size="50%"
+                        size="40%"
                         className="pl-2 pt-2 overflow-hidden"
                         >
                         <Tabs type="card">
