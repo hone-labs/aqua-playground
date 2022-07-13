@@ -65,26 +65,14 @@ class App extends React.Component<{}, IAppState> {
     private compileCode() {
         const errors: any[] = [];
 
-        let compiled: string = "";
-
-        try {
-            compiled = compile(this.state.code, (err: IError) => {
-                errors.push(err);
-            });
-        }    
-        catch (err) {
-            //
-            // Possible compile errors.
-            //
-            console.error(`Error compiling Aqua code.`);
-            console.error(err);
-        }
+        const compiled = compile(this.state.code, (err: IError) => {
+            console.log(err); //fio:
+            errors.push(err);
+        });
 
         this.setState({
             compiled: compiled,
             ast: parse(this.state.code, () => {}),
-        });
-        this.setState({
             errors: errors,
         });
     }
