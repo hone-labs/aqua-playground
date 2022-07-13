@@ -10,11 +10,11 @@ import { Input, Button, Tabs, Menu } from 'antd';
 const { TabPane } = Tabs;
 import "./styles/styles.less";
 
-const code = `function onRegister() {
+const code = `function onRegister(): uint64 {
     return 1;
 }
 
-function main() {
+function main(): uint64 {
     return onRegister();
 }
 
