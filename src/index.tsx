@@ -8,6 +8,7 @@ import { JSONTree } from 'react-json-tree';
 import * as Space from 'react-spaces';
 import { Input, Button, Tabs, Menu } from 'antd';
 const { TabPane } = Tabs;
+import "./styles/styles.less";
 
 const code = `function onRegister() {
     return 1;
