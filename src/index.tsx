@@ -11,6 +11,7 @@ const { TabPane } = Tabs;
 import "./styles/styles.less";
 import { ASTNode } from "aqua-compiler/build/ast";
 import { ISymbolTable } from "aqua-compiler/build/symbol-table";
+import { ICompilerResult } from "aqua-compiler";
 
 const theme = {
     scheme: 'monokai',
@@ -35,9 +36,7 @@ const theme = {
 
 interface IAppState {
     code: string;
-    compiled?: string;
-    ast?: ASTNode;
-    symbolTable?: ISymbolTable;
+    compilerResult?: ICompilerResult;
     errors: IError[];
 }
  
@@ -84,9 +83,7 @@ class App extends React.Component<{}, IAppState> {
         const result = compiler.compile(this.state.code)
 
         this.setState({
-            compiled: result.output,
-            ast: result.ast,        
-            symbolTable: result.symbolTable,    
+            compilerResult: result,
             errors: compiler.errors,
         });
     }
@@ -185,30 +182,43 @@ class App extends React.Component<{}, IAppState> {
                                 className="p-1 overflow-y-auto"
                                 >
                                 <pre className="font-mono text-xs">
-                                    {this.state.compiled || ""}                    
+                                    {this.state.compilerResult?.output || ""}                    
                                 </pre>
                             </TabPane>
                             <TabPane 
-                                tab="Symbol table"
+                                tab="Symbols"
                                 key="2"
                                 className="p-1 overflow-y-auto"
                                 >
                                 <pre className="font-mono text-xs">
                                     <JSONTree 
-                                        data={this.state.symbolTable !== undefined ? this.transformSymbolTable(this.state.symbolTable) : {}} 
+                                        data={this.state.compilerResult?.symbolTable !== undefined ? this.transformSymbolTable(this.state.compilerResult.symbolTable) : {}} 
                                         theme={theme}
                                         hideRoot={true}
                                         />
                                 </pre>
                             </TabPane>
                             <TabPane 
-                                tab="Abstract syntax tree"
+                                tab="AST"
                                 key="3"
                                 className="p-1 overflow-y-auto"
                                 >
                                 <pre className="font-mono text-xs">
                                     <JSONTree 
-                                        data={this.state.ast || {}} 
+                                        data={this.state.compilerResult?.ast || {}} 
+                                        theme={theme}
+                                        hideRoot={true}
+                                        />
+                                </pre>
+                            </TabPane>
+                            <TabPane 
+                                tab="Code emitter"
+                                key="4"
+                                className="p-1 overflow-y-auto"
+                                >
+                                <pre className="font-mono text-xs">
+                                    <JSONTree 
+                                        data={this.state.compilerResult?.codeEmitter || {}} 
                                         theme={theme}
                                         hideRoot={true}
                                         />
