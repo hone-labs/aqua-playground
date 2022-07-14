@@ -44,7 +44,18 @@ interface IAppState {
 const examples = [
     require(`./examples/first-example`).default,
     require(`./examples/app-global-get-ex`).default,
+
+    require(`./examples/function-returns-one-integer`).default,
+    require(`./examples/function-returns-no-value`).default,
     require(`./examples/function-returns-tuple`).default,
+    require(`./examples/bad-function`).default,
+    require(`./examples/program-captures-one-value-from-function`).default,
+    require(`./examples/program-captures-tuple-from-function`).default,
+    require(`./examples/program-returns-functions-result`).default,
+
+    require(`./examples/tuple-initializer`).default,
+    require(`./examples/tuple-assignment`).default,
+
 ];
 
 class App extends React.Component<{}, IAppState> {
@@ -90,7 +101,7 @@ class App extends React.Component<{}, IAppState> {
                 </Space.Top>
                 <Space.Fill>
                     <Space.Left 
-                        size="200px"
+                        size="300px"
                         className="pl-2 pt-2 overflow-hidden"
                         >
                         <Tabs type="card">
