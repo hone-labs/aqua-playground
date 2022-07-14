@@ -197,6 +197,7 @@ class App extends React.Component<{}, IAppState> {
                                     <JSONTree 
                                         data={this.state.symbolTable !== undefined ? this.transformSymbolTable(this.state.symbolTable) : {}} 
                                         theme={theme}
+                                        hideRoot={true}
                                         />
                                 </pre>
                             </TabPane>
@@ -209,6 +210,7 @@ class App extends React.Component<{}, IAppState> {
                                     <JSONTree 
                                         data={this.state.ast || {}} 
                                         theme={theme}
+                                        hideRoot={true}
                                         />
                                 </pre>
                             </TabPane>
