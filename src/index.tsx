@@ -68,7 +68,7 @@ class App extends React.Component<{}, IAppState> {
 
         const compiled = compile(this.state.code, (err: IError) => {
             errors.push(err);
-        });
+        }, { outputComments: true });
 
         this.setState({
             compiled: compiled,
