@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Editor from 'react-simple-code-editor';
 import Prism from "prismjs";
-import { IError, parse, Compiler } from "aqua-compiler";
+import { IError, Compiler } from "aqua-compiler";
 import _ from "lodash";
 import { JSONTree } from 'react-json-tree';
 import * as Space from 'react-spaces';
@@ -76,11 +76,11 @@ class App extends React.Component<{}, IAppState> {
     //
     private compileCode() {
         const compiler = new Compiler({ outputComments: true });
-        const compiled = compiler.compile(this.state.code)
+        const result = compiler.compile(this.state.code)
 
         this.setState({
-            compiled: compiled || "",
-            ast: parse(this.state.code, () => {}),
+            compiled: result.output,
+            ast: result.ast,            
             errors: compiler.errors,
         });
     }
