@@ -9,6 +9,8 @@ import * as Space from 'react-spaces';
 import { Input, Button, Tabs, Menu } from 'antd';
 const { TabPane } = Tabs;
 import "./styles/styles.less";
+import { ASTNode } from "aqua-compiler/build/ast";
+import { ISymbolTable } from "aqua-compiler/build/symbol-table";
 
 const theme = {
     scheme: 'monokai',
@@ -33,9 +35,10 @@ const theme = {
 
 interface IAppState {
     code: string;
-    compiled: string;
-    ast: any;
-    errors: any[];
+    compiled?: string;
+    ast?: ASTNode;
+    symbolTable?: ISymbolTable;
+    errors: IError[];
 }
  
 //
@@ -59,14 +62,16 @@ const examples = [
 ];
 
 class App extends React.Component<{}, IAppState> {
-    
-    state = { 
-        code: examples[0].text, 
-        compiled: "" ,
-        ast: {},
-        errors: [],
-    };
 
+    constructor(props: {}) {
+        super(props);
+        
+        this.state = { 
+            code: examples[0].text, 
+            errors: [],
+        };
+    }
+    
     componentDidMount() {
         this.compileCode();    
     }
@@ -80,7 +85,8 @@ class App extends React.Component<{}, IAppState> {
 
         this.setState({
             compiled: result.output,
-            ast: result.ast,            
+            ast: result.ast,        
+            symbolTable: result.symbolTable,    
             errors: compiler.errors,
         });
     }
@@ -163,17 +169,29 @@ class App extends React.Component<{}, IAppState> {
                                 className="p-1 overflow-y-auto"
                                 >
                                 <pre className="font-mono text-xs">
-                                    {this.state.compiled}                    
+                                    {this.state.compiled || ""}                    
                                 </pre>
                             </TabPane>
                             <TabPane 
-                                tab="Abstract syntax tree"
+                                tab="Symbol table"
                                 key="2"
                                 className="p-1 overflow-y-auto"
                                 >
                                 <pre className="font-mono text-xs">
                                     <JSONTree 
-                                        data={this.state.ast} 
+                                        data={this.state.symbolTable || {}} 
+                                        theme={theme}
+                                        />
+                                </pre>
+                            </TabPane>
+                            <TabPane 
+                                tab="Abstract syntax tree"
+                                key="3"
+                                className="p-1 overflow-y-auto"
+                                >
+                                <pre className="font-mono text-xs">
+                                    <JSONTree 
+                                        data={this.state.ast || {}} 
                                         theme={theme}
                                         />
                                 </pre>
