@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Editor from 'react-simple-code-editor';
 import Prism from "prismjs";
-import { compile, IError, parse } from "aqua-compiler";
+import { IError, parse, Compiler } from "aqua-compiler";
 import _ from "lodash";
 import { JSONTree } from 'react-json-tree';
 import * as Space from 'react-spaces';
@@ -75,16 +75,13 @@ class App extends React.Component<{}, IAppState> {
     // Compiles the Aqua code and displays the result.
     //
     private compileCode() {
-        const errors: any[] = [];
-
-        const compiled = compile(this.state.code, (err: IError) => {
-            errors.push(err);
-        }, { outputComments: true });
+        const compiler = new Compiler({ outputComments: true });
+        const compiled = compiler.compile(this.state.code)
 
         this.setState({
-            compiled: compiled,
+            compiled: compiled || "",
             ast: parse(this.state.code, () => {}),
-            errors: errors,
+            errors: compiler.errors,
         });
     }
 
@@ -195,7 +192,7 @@ class App extends React.Component<{}, IAppState> {
                             {this.state.errors.map((error: IError, index) => {
                                 return (
                                     <div key={index}>
-                                        {error.msg}
+                                        {error.message}
                                     </div>
                                 );
                             })}
