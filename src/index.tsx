@@ -65,7 +65,7 @@ class App extends React.Component<{}, IAppState> {
 
     constructor(props: {}) {
         super(props);
-        
+
         this.state = { 
             code: examples[0].text, 
             errors: [],
@@ -89,6 +89,22 @@ class App extends React.Component<{}, IAppState> {
             symbolTable: result.symbolTable,    
             errors: compiler.errors,
         });
+    }
+    
+    //
+    // Transforms a symbol table for display.
+    //
+    private transformSymbolTable(symbolTable: ISymbolTable) {
+        const symbols: any = {};
+        for (const symbol of symbolTable.getSymbols()) {
+            symbols[symbol.name] = Object.assign({}, symbol);
+
+            if (symbol.scope) {
+                symbols[symbol.name].scope = this.transformSymbolTable(symbol.scope);
+            }
+        }
+
+        return symbols;
     }
 
     render() {
@@ -179,7 +195,7 @@ class App extends React.Component<{}, IAppState> {
                                 >
                                 <pre className="font-mono text-xs">
                                     <JSONTree 
-                                        data={this.state.symbolTable || {}} 
+                                        data={this.state.symbolTable !== undefined ? this.transformSymbolTable(this.state.symbolTable) : {}} 
                                         theme={theme}
                                         />
                                 </pre>
