@@ -7,7 +7,7 @@ specifiers:
   '@types/react': ^16.14.0
   '@types/react-dom': ^16.9.8
   antd: ^4.18.7
-  aqua-compiler: ^0.0.30
+  aqua-compiler: ^0.0.33
   copy-webpack-plugin: ^11.0.0
   css-loader: ^6.7.1
   history: ^5.1.0
@@ -33,7 +33,7 @@ specifiers:
 
 dependencies:
   antd: 4.21.5_wcqkhtmu7mswc6yz4uyexck3ty
-  aqua-compiler: 0.0.30
+  aqua-compiler: 0.0.33
   history: 5.3.0
   lodash: 4.17.21
   prismjs: 1.28.0
@@ -720,8 +720,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /aqua-compiler/0.0.30:
-    resolution: {integrity: sha512-3bs8NKs+uR/qb6knlfKooeNr+LIO5a5nzn0slynSyvD7pcYOFzMVrQiNG2Vqr2EGMSSgLK+7VVGpqVLC5HQUNg==}
+  /aqua-compiler/0.0.33:
+    resolution: {integrity: sha512-yxshbxHsaLS8F6s1+eDJg/1lf35zlwQp32lYeMSmE3ooAOg6OS9R2xu0gj6BcPnHDl63E50F/mhEu7rW8PfgRg==}
     hasBin: true
     dependencies:
       '@nodelib/fs.walk': 1.2.8
@@ -730,7 +730,7 @@ packages:
       minimist: 1.2.6
       pegjs: 0.10.0
       sha3: 2.1.4
-      teal-interpreter: 0.0.20
+      teal-interpreter: 0.0.39
       tweetnacl-ts: 1.0.3
       yaml: 1.10.2
       zod: 1.11.17
@@ -1945,7 +1945,6 @@ packages:
       graceful-fs: 4.2.10
       jsonfile: 6.1.0
       universalify: 2.0.0
-    dev: true
 
   /fs-monkey/1.0.3:
     resolution: {integrity: sha512-cybjIfiiE+pTWicSCLFHSrXZ6EilF30oh91FDP9S2B051prEa7QWfrVTQm10/dDpswBDXZugPa1Ogu8Yh+HV0Q==}
@@ -2044,7 +2043,6 @@ packages:
 
   /graceful-fs/4.2.10:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
-    dev: true
 
   /handle-thing/2.0.1:
     resolution: {integrity: sha512-9Qn4yBxelxoh2Ow62nP+Ka/kMnOXRi8BXnRaUwezLNhqelnN49xKz4F/dPP8OYLxLxq6JDtZb2i9XznUQbNPTg==}
@@ -2607,7 +2605,6 @@ packages:
       universalify: 2.0.0
     optionalDependencies:
       graceful-fs: 4.2.10
-    dev: true
 
   /kind-of/3.2.2:
     resolution: {integrity: sha512-NOW9QQXMoZGg/oqnVNoNTTIFEIid1627WCffUBJEdMxYApq7mNE7CpzucIPc+ZQg25Phej7IJSmX3hO+oblOtQ==}
@@ -4701,12 +4698,13 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /teal-interpreter/0.0.20:
-    resolution: {integrity: sha512-eTbybwPFIWfdd0hleifJ273MEklE4kxtLQISwRr1toJGdcPxrTDmAvNHzKkbyetr9BquqUKVbKb1B4Iu+Fgb6Q==}
+  /teal-interpreter/0.0.39:
+    resolution: {integrity: sha512-nVA1DFOumAfiNrBAAutp6kuJFyUrl6JAm3xkeFfWDBl11GpHZBMppVOuBZ/jmbpge92UrL49nE3It+I5ZpUrpA==}
     hasBin: true
     dependencies:
       algosdk: 1.18.1
       elliptic: 6.5.4
+      fs-extra: 10.1.0
       hi-base32: 0.5.1
       js-sha256: 0.9.0
       js-sha512: 0.8.0
@@ -4867,7 +4865,6 @@ packages:
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
-    dev: true
 
   /unix-crypt-td-js/1.1.4:
     resolution: {integrity: sha512-8rMeVYWSIyccIJscb9NdCfZKSRBKYTeVnwmiRYT2ulE3qd1RaDQ0xQDP+rI3ccIWbhu/zuo5cgN8z73belNZgw==}
