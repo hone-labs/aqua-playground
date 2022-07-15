@@ -6,9 +6,9 @@
   "scripts": {
     "start": "webpack serve --open",
     "s": "npm start",
-    "tsc": "tsc",
+    "compile": "tsc --incremental",
     "build": "webpack",
-    "clean": "rm -rf ./dist"
+    "clean": "rm -rf dist build tsconfig.tsbuildinfo"
   },
   "keywords": [],
   "author": "ashley@codecapers.com.au",
