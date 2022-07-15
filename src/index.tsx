@@ -2,16 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Editor from 'react-simple-code-editor';
 import Prism from "prismjs";
-import { IError, Compiler } from "aqua-compiler";
+import { IError, Compiler, ICompilerResult, ISymbolTable } from "aqua-compiler";
 import _ from "lodash";
 import { JSONTree } from 'react-json-tree';
 import * as Space from 'react-spaces';
 import { Input, Button, Tabs, Menu } from 'antd';
 const { TabPane } = Tabs;
 import "./styles/styles.less";
-import { ASTNode } from "aqua-compiler/build/ast";
-import { ISymbolTable } from "aqua-compiler/build/symbol-table";
-import { ICompilerResult } from "aqua-compiler";
 
 const theme = {
     scheme: 'monokai',
