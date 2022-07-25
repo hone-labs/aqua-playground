@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Editor from 'react-simple-code-editor';
-import Prism from "prismjs";
 import { IError, Compiler, ICompilerResult, ISymbolTable } from "aqua-compiler";
 import _ from "lodash";
 import { JSONTree } from 'react-json-tree';
 import * as Space from 'react-spaces';
 import { Input, Button, Tabs, Menu } from 'antd';
 const { TabPane } = Tabs;
+import MonacoEditor from 'react-monaco-editor';
 import "./styles/styles.less";
 
 const theme = {
@@ -153,17 +152,20 @@ class App extends React.Component<{}, IAppState> {
                                 tab="Aqua"
                                 className="p-1 overflow-y-auto"
                                 >
-                                <Editor
-                                    style={{
-                                        height: "100%",
-                                    }}
+                                <MonacoEditor
+                                    language="typescript"
                                     value={this.state.code}
-                                    onValueChange={code => {
+                                    onChange={code => {
                                         this.setState({ code: code });
                                         _.debounce(() => this.compileCode(), 100)();
                                     }}
-                                    highlight={code => Prism.highlight(code, Prism.languages.js, "javascript")}
-                                    padding={10}
+                                    options={{
+                                        minimap: {
+                                            enabled: false,
+                                        },
+                                        contextmenu: false,
+                                        automaticLayout: true,
+                                    }}
                                     />
                             </TabPane>
                         </Tabs>

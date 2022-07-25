@@ -1,8 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
-const outputDir = path.resolve(__dirname, 'dist'); // This has to be an absolute path!;
+const outputDir = path.resolve(__dirname, 'dist'); // This has to be an absolute path!
+const APP_DIR = path.resolve(__dirname, './src');
+const MONACO_DIR = path.resolve(__dirname, './node_modules/monaco-editor');
 
 module.exports = {
     entry: './src/index.tsx',
@@ -34,11 +37,36 @@ module.exports = {
                 ],
             },
 
+            // For loading App CSS.
+            {
+                test: /\.css$/i,
+                include: APP_DIR,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                ],
+            },
+
+            // For loading Monaco CSS.
+            {
+                test: /\.css$/,
+                include: MONACO_DIR,
+                use: [
+                    "style-loader", 
+                    "css-loader",
+                ],
+            },
+
             {
                 test: /\.tsx?$/,
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
+
+            {
+				test: /\.ttf$/,
+				type: 'asset/resource',
+			},            
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {
@@ -69,5 +97,8 @@ module.exports = {
             ],
         }),
 
+        new MonacoWebpackPlugin({
+            languages: [ "typescript" ],
+        }),
     ],
 };
