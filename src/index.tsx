@@ -6,7 +6,7 @@ import { JSONTree } from 'react-json-tree';
 import * as Space from 'react-spaces';
 import { Input, Button, Tabs, Menu } from 'antd';
 const { TabPane } = Tabs;
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor, { monaco } from 'react-monaco-editor';
 import "./styles/styles.less";
 
 const theme = {
@@ -35,6 +35,10 @@ interface IAppState {
     compilerResult?: ICompilerResult;
     errors: IError[];
 }
+
+monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    diagnosticCodesToIgnore: [ 2552, 1108 ],
+});
  
 //
 // Example queries that can be put in the query editor.
