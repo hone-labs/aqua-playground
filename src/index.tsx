@@ -44,12 +44,18 @@ monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
 // Example queries that can be put in the query editor.
 //
 const examples = [
-    require(`./examples/first-example`).default,
-    require(`./examples/app-global-get-ex`).default,
-
+    require(`./examples/simple-expression`).default,
+    require(`./examples/if-statement`).default,
+    require(`./examples/while-loop`).default,
     require(`./examples/function-returns-one-integer`).default,
     require(`./examples/function-returns-no-value`).default,
     require(`./examples/function-returns-tuple`).default,
+
+    require(`./examples/teal-counter-example`).default,
+    require(`./examples/teal-counter-future`).default,
+    require(`./examples/contract-methods-example`).default,
+    require(`./examples/app-global-get-ex`).default,
+
     require(`./examples/bad-function`).default,
     require(`./examples/program-captures-one-value-from-function`).default,
     require(`./examples/program-captures-tuple-from-function`).default,
