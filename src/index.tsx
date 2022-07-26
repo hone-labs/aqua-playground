@@ -37,7 +37,7 @@ interface IAppState {
 }
 
 monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-    diagnosticCodesToIgnore: [ 2552, 1108 ],
+    diagnosticCodesToIgnore: [ 2552, 1108, 2364, 2304, 1134, 2300, 2391, 7044, 1005, 1138, 1003, 1128, 2695  ],
 });
  
 //
