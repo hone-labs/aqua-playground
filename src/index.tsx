@@ -241,7 +241,7 @@ class App extends React.Component<{}, IAppState> {
                             {this.state.errors.map((error: IError, index) => {
                                 return (
                                     <div key={index}>
-                                        {error.message}
+                                        {error.message} (line: {error.line}, column: {error.column})
                                     </div>
                                 );
                             })}
