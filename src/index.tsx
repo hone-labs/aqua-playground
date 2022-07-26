@@ -108,11 +108,14 @@ class App extends React.Component<{}, IAppState> {
         return (
             <Space.ViewPort>
                 <Space.Top
-                    size="70px"
+                    size="65px"
                     >
                     <div className="pl-4 p-2">
                         <h1 className="text-2xl">Aqua language playground</h1>
-                        <h2 className="text-lg">An interactive editor for the Aqua language</h2>
+                        <p className="mt-1">
+                            An interactive editor for <a className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" target="_blank" href="https://github.com/hone-labs/aqua-compiler">Aqua</a>:
+                            An expressive high level language for Algorand smart contracts that compiles to TEAL code.
+                        </p>
                     </div>
                 </Space.Top>
                 <Space.Fill>
